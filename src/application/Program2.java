@@ -24,6 +24,11 @@ public static void main(String[] args) {
 			System.out.println(dep);
 		}
 		
+		System.out.println("\n=== Test 3: seller insert =====" );
+		Department newDepartment = new Department(null , "Sports");
+		departmentDao.insert(newDepartment);
+		System.out.println("Tnserted! New id = " + newDepartment.getId());
+		
 		
 		sc.close();
 
