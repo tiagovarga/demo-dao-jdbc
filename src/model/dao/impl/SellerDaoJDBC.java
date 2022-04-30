@@ -46,14 +46,17 @@ public class SellerDaoJDBC implements SellerDao {
 					obj.setId(id);
 				}
 				DB.closeResultSet(rs);
-			} else {
+			} 
+			else {
 				throw new DbException("Unexpeted error! No rows affected!");
 			}
 
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			throw new DbException(e.getMessage());
 
-		} finally {
+		} 
+		finally {
 			DB.closeStatment(st);
 		}
 
@@ -75,10 +78,12 @@ public class SellerDaoJDBC implements SellerDao {
 
 			st.executeUpdate();
 
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			throw new DbException(e.getMessage());
 
-		} finally {
+		} 
+		finally {
 			DB.closeStatment(st);
 		}
 
@@ -118,9 +123,11 @@ public class SellerDaoJDBC implements SellerDao {
 
 			}
 			return null;
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		} finally {
+		} 
+		finally {
 			DB.closeStatment(st);
 			DB.closeResultSet(rs);
 		}
@@ -172,9 +179,11 @@ public class SellerDaoJDBC implements SellerDao {
 
 			}
 			return list;
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		} finally {
+		}
+		finally {
 			DB.closeStatment(st);
 			DB.closeResultSet(rs);
 		}
@@ -208,9 +217,11 @@ public class SellerDaoJDBC implements SellerDao {
 
 			}
 			return list;
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			throw new DbException(e.getMessage());
-		} finally {
+		} 
+		finally {
 			DB.closeStatment(st);
 			DB.closeResultSet(rs);
 		}

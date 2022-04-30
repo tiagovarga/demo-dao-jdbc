@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
 import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
-import model.entities.Seller;
 
 public class DepartmentDaoJDBC implements DepartmentDao{
 	
@@ -21,17 +21,6 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		this.conn = conn;
 	}
 	
-	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
-		Seller obj = new Seller();
-		obj.setId(rs.getInt("Id"));
-		obj.setName(rs.getString("Name"));
-		obj.setEmail(rs.getString("Email"));
-		obj.setBirthDate(rs.getDate("BirthDate"));
-		obj.setBaseSalary(rs.getDouble("BaseSalary"));
-		obj.setDepartment(dep);
-		return obj;
-	}
-
 	private Department instantiateDepartment(ResultSet rs) throws SQLException {
 		Department dep = new Department();
 		dep.setId(rs.getInt("Id"));
@@ -109,8 +98,28 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
 	@Override
 	public List<Department> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs =  null;
+		try {
+			st = conn.prepareStatement("SELECT * FROM Department  "
+					+ "ORDER by Name");
+			
+			rs = st.executeQuery();
+			List<Department> list = new ArrayList<>();
+			while (rs.next()) {
+				Department dep = instantiateDepartment(rs);
+				list.add(dep);
+			}
+			
+			return list;
+		} 
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} 
+		finally {
+			DB.closeStatment(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	
